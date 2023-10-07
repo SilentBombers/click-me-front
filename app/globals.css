@@ -6,7 +6,20 @@
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: "#d6d6d6";
     --background-end-rgb: 255, 255, 255;
+    transform: scale(0.8);
+    transform-origin: top;
 }
+/*@media only screen and (max-width: 600px) {*/
+/*    !* 스타일 정의 *!*/
+/*}*/
+
+/*html, body, #root {*/
+/*    padding: 0px !important;;*/
+/*    margin: 0px !important;;*/
+/*    height: 100vh;*/
+/*    width: 100vw;*/
+/*}*/
+
 
 /*@media (prefers-color-scheme: dark) {*/
 /*  :root {*/
