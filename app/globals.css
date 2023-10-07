@@ -1,20 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*@tailwind base;*/
+/*@tailwind components;*/
+/*@tailwind utilities;*/
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: "#d6d6d6";
+    --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/*@media (prefers-color-scheme: dark) {*/
+/*  :root {*/
+/*    --foreground-rgb: 255, 255, 255;*/
+/*    --background-start-rgb: 0, 0, 0;*/
+/*    --background-end-rgb: 0, 0, 0;*/
+/*  }*/
+/*}*/
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: #f7f7f7;
 }
+
 
 /*body {*/
 /*  color: rgb(var(--foreground-rgb));*/
@@ -27,14 +33,14 @@
 /*}*/
 
 
-.slider {
-  color: #20b2aa;
-}
+/*.slider {*/
+/*  color: #20b2aa;*/
+/*}*/
 
-.slider:hover {
-  color: #2e8b57;
-}
+/*.slider:hover {*/
+/*  color: #2e8b57;*/
+/*}*/
 
-.slider .MuiSlider-thumb {
-  border-radius: 1px;
-}
+/*.slider .MuiSlider-thumb {*/
+/*  border-radius: 1px;*/
+/*}*/

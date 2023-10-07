@@ -1,28 +1,25 @@
 "use client"
 import {
-    AppBar,
     Box,
     Button,
     Container,
     Grid,
-    InputBase,
-    Paper, Slider,
+    Paper,
     TextField,
-    Toolbar,
-    styled,
     Typography,
     ThemeProvider
 } from "@mui/material";
 import React, {useState} from "react";
-import {createTheme} from "@mui/material/styles";
-import {amber, deepOrange, orange} from "@mui/material/colors";
+import {createTheme, styled} from "@mui/material/styles";
+import {amber, deepOrange} from "@mui/material/colors";
 import Nav from "@/components/Nav";
+import CodeBlock from "@/components/CodeBlock";
 
 
 const StyledTextField = styled(TextField)(({theme}) => ({
     '& .MuiOutlinedInput-root': {
-        // border: `2px solid rgba(242, 162, 41)`,
-        // borderRadius: 50,
+        height: "80px",
+        fontSize: 35,
         '& fieldset': {
             border: `5px solid rgba(242, 162, 41, 0.5)`, // 기본 border 색상 설정
             borderRadius: 50,
@@ -33,7 +30,6 @@ const StyledTextField = styled(TextField)(({theme}) => ({
         },
         '&.Mui-focused fieldset': {
             border: `5px solid rgba(242, 162, 41)`,
-            // borderRadius: 30,// 포커스 시 변경할 border 색상 설정
         },
     },
 }));
@@ -47,52 +43,94 @@ const theme = createTheme({
 });
 
 const Page = () => {
-    const [isFocused, setIsFocused] = useState(false);
+    const [siteId, setSiteId] = useState<string>("");
+    const [siteText, setSiteText] = useState<string>(
+        '<a align="center" href="https://www.github.com/YourId">' + '<img src="http://clickme.today:8080/test1/justImage"/>' + '</a>')
+    const generateCode = () => {
+        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="http://clickme.today:8080/test1/justImage"/>' + '</a>')
+    }
+
     return <>
         <ThemeProvider theme={theme}>
             <Nav></Nav>
-        <Container fixed sx={{borderColor: "red"}}>
-            <Box sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                borderColor: "primary.main",
-                border: 1
-            }}>
-                <Grid item xs={12} sx={{pt: 2, pb: 2, borderColor: "primary.main", border: 1}}>
-                    <Typography variant={"h1"}>
-                        Add Click Me to Your Site
-                    </Typography>
-                </Grid>
-                <Grid container sx={{pt: 8, justifyContent: "center",}}>
-                    <Grid item xs={10} sx={{pt: 2, pb: 2}}>
-                        {/*<CssTextField></CssTextField>*/}
-                        <StyledTextField
-                            fullWidth
-                            InputProps={{
-                                endAdornment: <Button sx={{color: "rgba(242, 162, 41)"}}>Generate</Button>,
-                            }}
-                            label={"hello"}
-                            variant="outlined">
-                        </StyledTextField>
-                        <TextField label="메롱" variant="outlined"></TextField>
+            <Container fixed>
+                <Box sx={{
+                    marginTop: 8,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                    <Grid item xs={12} sx={{pt: 2, pb: 4}}>
+                        <Typography variant={"h1"} sx={{fontWeight: 'bold'}}>
+                            Add Click Me to
+                        </Typography>
+                        <Typography variant={"h1"} sx={{fontWeight: 'bold', textAlign: 'center'}}>
+                            Your readme
+                        </Typography>
                     </Grid>
-                </Grid>
-                {/*이미지 박스*/}
-                <Grid item xs={1.5} sx={{pt: 2}}>
-                    <Paper variant="outlined">
-                        <img src="http://clickme.today:8080/test1/justImage"/>
-                    </Paper>
-                </Grid>
-            </Box>
-
-        </Container>
+                    <Grid container>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={10}>
+                            <Typography variant={"h4"} sx={{textAlign: 'center'}}>
+                                Add Click Me. Make your friends to click your Click Me. </Typography>
+                            <Typography variant={"h4"} sx={{textAlign: 'center'}}> How to start? Just add this
+                                simple
+                                code in your readme.</Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container sx={{pt: 8, justifyContent: "center",}}>
+                        <Grid item xs={10} sx={{pt: 2, pb: 2}}>
+                            <StyledTextField
+                                fullWidth
+                                InputProps={{
+                                    startAdornment: <Typography sx={{
+                                        fontSize: 40,
+                                        pl: 2,
+                                        fontWeight: 'medium'
+                                    }}>https://github.com/</Typography>,
+                                    placeholder: "YourId",
+                                    endAdornment: <Button sx={{
+                                        color: "rgba(242, 162, 41)",
+                                        height: "60px",
+                                        fontSize: 30,
+                                        fontWeight: "bold",
+                                        mr: 2,
+                                        minWidth: "180px",
+                                        justifyContent: "center",
+                                    }}
+                                                          onClick={generateCode}>Generate</Button>,
+                                }}
+                                variant="outlined"
+                                onChange={(e) => {
+                                    setSiteId(e.target.value)
+                                }}
+                            >
+                            </StyledTextField>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={1.5} sx={{pt: 2}}>
+                    </Grid>
+                    <Grid container>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={4} sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                            <Paper variant="outlined">
+                                <img src="http://clickme.today:8080/test1/justImage"/>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CodeBlock siteText={siteText}/>
+                        </Grid>
+                        <Grid item xs={1}></Grid>
+                    </Grid>
+                </Box>
+            </Container>
         </ThemeProvider>
-
     </>
 }
-
 
 export default Page;
