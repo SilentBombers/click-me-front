@@ -118,7 +118,7 @@ const Page = () => {
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                                <a href={"https://www.github.com/" + siteId}><img
+                                <a href={"https://clickme.today/main"}><img
                                     src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
                                 {/*<img src="https://clickme.today/test1/justImage"/>*/}
                         </Grid>
