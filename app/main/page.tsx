@@ -45,9 +45,9 @@ const theme = createTheme({
 const Page = () => {
     const [siteId, setSiteId] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
-        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/test1/justImage"/>' + '</a>')
+        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/clicks/count?id=YourId"/>' + '</a>')
     const generateCode = () => {
-        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/test1/justImage"/>' + '</a>')
+        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteId + '"/>' + '</a>')
     }
 
     return <>
@@ -119,7 +119,9 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                             <Paper variant="outlined">
-                                <img src="https://clickme.today/test1/justImage"/>
+                                <a href={"https://www.github.com/" + siteId}><img
+                                    src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
+                                {/*<img src="https://clickme.today/test1/justImage"/>*/}
                             </Paper>
                         </Grid>
                         <Grid item xs={6}>
