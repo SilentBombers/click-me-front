@@ -118,11 +118,9 @@ const Page = () => {
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                            <Paper variant="outlined">
                                 <a href={"https://www.github.com/" + siteId}><img
                                     src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
                                 {/*<img src="https://clickme.today/test1/justImage"/>*/}
-                            </Paper>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
