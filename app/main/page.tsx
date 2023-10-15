@@ -43,11 +43,11 @@ const theme = createTheme({
 });
 
 const Page = () => {
-    const [siteId, setSiteId] = useState<string>("");
+    const [siteUrl, setSiteUrl] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
         '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/clicks/count?id=YourId"/>' + '</a>')
     const generateCode = () => {
-        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteId + '"/>' + '</a>')
+        setSiteText('<a align="center" href="' + siteUrl + '">' + '<img src="' + siteUrl + '"/>' + '</a>')
     }
 
     return <>
@@ -61,7 +61,7 @@ const Page = () => {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Grid item xs={12} sx={{pt: 2, pb: 4}}>
+                    <Grid item xs={12} sx={{pt: 2, pb: 3}}>
                         <Typography variant={"h1"} sx={{fontWeight: 'bold'}}>
                             Add Click Me to
                         </Typography>
@@ -81,15 +81,11 @@ const Page = () => {
                     </Grid>
                     <Grid container sx={{pt: 8, justifyContent: "center",}}>
                         <Grid item xs={10} sx={{pt: 2, pb: 2}}>
+                            <Typography variant={"h6"} sx={{textAlign: 'center', pb: 1}}> Copy and paste your site's URL</Typography>
                             <StyledTextField
                                 fullWidth
                                 InputProps={{
-                                    startAdornment: <Typography sx={{
-                                        fontSize: 40,
-                                        pl: 2,
-                                        fontWeight: 'medium'
-                                    }}>https://github.com/</Typography>,
-                                    placeholder: "YourId",
+                                    placeholder: "https://github.com/YourId",
                                     endAdornment: <Button sx={{
                                         color: "rgba(242, 162, 41)",
                                         height: "60px",
@@ -103,7 +99,7 @@ const Page = () => {
                                 }}
                                 variant="outlined"
                                 onChange={(e) => {
-                                    setSiteId(e.target.value)
+                                    setSiteUrl(e.target.value)
                                 }}
                             >
                             </StyledTextField>
@@ -119,8 +115,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                                 <a href={"https://clickme.today/main"}><img
-                                    src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
-                                {/*<img src="https://clickme.today/test1/justImage"/>*/}
+                                    src={"https://clickme.today/api/clicks/count?id=" + siteUrl}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
