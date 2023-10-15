@@ -44,10 +44,12 @@ const theme = createTheme({
 
 const Page = () => {
     const [siteUrl, setSiteUrl] = useState<string>("");
+    const [siteId, setSiteId] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
         '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/clicks/count?id=YourId"/>' + '</a>')
     const generateCode = () => {
-        setSiteText('<a align="center" href="' + siteUrl + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteUrl + '"/>' + '</a>')
+        setSiteId(siteUrl);
+        setSiteText('<a align="center" href="' + siteUrl + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteId + '"/>' + '</a>')
     }
 
     return <>
@@ -115,7 +117,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                                 <a href={"https://clickme.today/main"}><img
-                                    src={"https://clickme.today/api/clicks/count?id=" + siteUrl}/></a>
+                                    src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
