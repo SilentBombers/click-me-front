@@ -47,7 +47,7 @@ const Page = () => {
     const [siteText, setSiteText] = useState<string>(
         '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/clicks/count?id=YourId"/>' + '</a>')
     const generateCode = () => {
-        setSiteText('<a align="center" href="' + siteUrl + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteUrl + '"/>' + '</a>')
+        setSiteText('<a align="center" href="' + siteUrl + '">' + '<img src="' + siteUrl + '"/>' + '</a>')
     }
 
     return <>
