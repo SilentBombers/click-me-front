@@ -1,19 +1,12 @@
 "use client"
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Paper,
-    TextField,
-    Typography,
-    ThemeProvider
-} from "@mui/material";
-import React, {useState} from "react";
+import {Box, Button, Container, Grid, TextField, ThemeProvider, Typography} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import {createTheme, styled} from "@mui/material/styles";
 import {amber, deepOrange} from "@mui/material/colors";
 import Nav from "@/components/Nav";
 import CodeBlock from "@/components/CodeBlock";
+import Ranking from "@/components/Ranking";
+import {Rank} from "@/app/type/ranking";
 
 
 const StyledTextField = styled(TextField)(({theme}) => ({
@@ -34,7 +27,6 @@ const StyledTextField = styled(TextField)(({theme}) => ({
     },
 }));
 
-
 const theme = createTheme({
     palette: {
         primary: amber,
@@ -49,6 +41,27 @@ const Page = () => {
     const generateCode = () => {
         setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteId + '"/>' + '</a>')
     }
+
+    const [rank, setRank] = useState<Rank[]>([])
+
+    useEffect(() => {
+        let s = new URLSearchParams({
+            startRank: "1",
+            endRank: "5",
+        }).toString();
+
+
+        fetch(`https://clickme.today/api/clicks/realtime?` + s)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setRank(result as Rank[]);
+                }
+            )
+
+        console.log(rank)
+
+    }, [])
 
     return <>
         <ThemeProvider theme={theme}>
@@ -118,9 +131,8 @@ const Page = () => {
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                                <a href={"https://clickme.today/main"}><img
-                                    src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
-                                {/*<img src="https://clickme.today/test1/justImage"/>*/}
+                            <a href={"https://clickme.today/main"}><img
+                                src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
@@ -128,6 +140,7 @@ const Page = () => {
                         <Grid item xs={1}></Grid>
                     </Grid>
                 </Box>
+                <Ranking rank={rank || []}></Ranking>
             </Container>
         </ThemeProvider>
     </>
