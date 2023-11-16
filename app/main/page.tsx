@@ -1,31 +1,16 @@
 "use client"
 import {Box, Button, Container, Grid, TextField, ThemeProvider, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
-import {createTheme, styled} from "@mui/material/styles";
+import {createTheme} from "@mui/material/styles";
 import {amber, deepOrange} from "@mui/material/colors";
 import Nav from "@/components/Nav";
 import CodeBlock from "@/components/CodeBlock";
 import Ranking from "@/components/Ranking";
 import {Rank} from "@/app/type/ranking";
-
-
-const StyledTextField = styled(TextField)(({theme}) => ({
-    '& .MuiOutlinedInput-root': {
-        height: "80px",
-        fontSize: 35,
-        '& fieldset': {
-            border: `5px solid rgba(242, 162, 41, 0.5)`, // 기본 border 색상 설정
-            borderRadius: 50,
-            transition: 'border-color 0.3s ease',
-        },
-        '&:hover fieldset': {
-            border: `5px solid rgba(242, 162, 41)`, // 호버 시 변경할 border 색상 설정
-        },
-        '&.Mui-focused fieldset': {
-            border: `5px solid rgba(242, 162, 41)`,
-        },
-    },
-}));
+import Description from "@/components/Description";
+import GenerateCodeTextField from "@/components/GenerateCodeTextField";
+import AreaChart from "@/components/AreaChart";
+import {DailyClicks} from "@/app/type/daily-clicks";
 
 const theme = createTheme({
     palette: {
@@ -44,12 +29,26 @@ const Page = () => {
 
     const [rank, setRank] = useState<Rank[]>([])
 
+    const [chartId, setChartId] = useState<string>("YourId");
+    const [charData, setChartData] = useState<DailyClicks[]>(data);
+
+    //TODO 여기를 고치시오.
+    const generateChart = () => {
+        //주석을 해제하고 밑에 주소를 바꾸면 됩니다.
+        // fetch(`https://clickme.today/api/clicks/realtime?` + chartId)
+        //     .then(res => res.json())
+        //     .then(
+        //         (result) => {
+        //             setChartData(result as DailyClicks[]);
+        //         }
+        //     )
+    }
+
     useEffect(() => {
-        let s = new URLSearchParams({
+        const s = new URLSearchParams({
             startRank: "1",
             endRank: "5",
         }).toString();
-
 
         fetch(`https://clickme.today/api/clicks/realtime?` + s)
             .then(res => res.json())
@@ -58,9 +57,6 @@ const Page = () => {
                     setRank(result as Rank[]);
                 }
             )
-
-        console.log(rank)
-
     }, [])
 
     return <>
@@ -74,56 +70,9 @@ const Page = () => {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Grid item xs={12} sx={{pt: 2, pb: 4}}>
-                        <Typography variant={"h1"} sx={{fontWeight: 'bold'}}>
-                            Add Click Me to
-                        </Typography>
-                        <Typography variant={"h1"} sx={{fontWeight: 'bold', textAlign: 'center'}}>
-                            Your readme
-                        </Typography>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={10}>
-                            <Typography variant={"h4"} sx={{textAlign: 'center'}}>
-                                Add Click Me. Make your friends to click your Click Me. </Typography>
-                            <Typography variant={"h4"} sx={{textAlign: 'center'}}> How to start? Just add this
-                                simple
-                                code in your readme.</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container sx={{pt: 8, justifyContent: "center",}}>
-                        <Grid item xs={10} sx={{pt: 2, pb: 2}}>
-                            <StyledTextField
-                                fullWidth
-                                InputProps={{
-                                    startAdornment: <Typography sx={{
-                                        fontSize: 40,
-                                        pl: 2,
-                                        fontWeight: 'medium'
-                                    }}>https://github.com/</Typography>,
-                                    placeholder: "YourId",
-                                    endAdornment: <Button sx={{
-                                        color: "rgba(242, 162, 41)",
-                                        height: "60px",
-                                        fontSize: 30,
-                                        fontWeight: "bold",
-                                        mr: 2,
-                                        minWidth: "180px",
-                                        justifyContent: "center",
-                                    }}
-                                                          onClick={generateCode}>Generate</Button>,
-                                }}
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setSiteId(e.target.value)
-                                }}
-                            >
-                            </StyledTextField>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={1.5} sx={{pt: 2}}>
-                    </Grid>
+                    <Description/>
+                    <GenerateCodeTextField onButtonClick={generateCode} setSiteId={setSiteId} buttonText={"Generate"}/>
+                    <Grid item xs={1.5} sx={{pt: 2}}></Grid>
                     <Grid container>
                         <Grid item xs={1}></Grid>
                         <Grid item xs={4} sx={{
@@ -132,7 +81,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                             <a href={"https://clickme.today/main"}><img
-                                src={"https://clickme.today/api/clicks/count?id=" + siteId}/></a>
+                                src={"http://localhost:8080/api/clicks/count?id=123"}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
@@ -141,9 +90,77 @@ const Page = () => {
                     </Grid>
                 </Box>
                 <Ranking rank={rank || []}></Ranking>
+                <Typography variant={"h2"} sx={{fontWeight: 'bold', textAlign: 'center', mt: 12}}>
+                    Click History
+                </Typography>
+                <Grid container spacing={1} sx={{
+                    pt: 4,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <Grid item xs={8} sx={{mb: 5}}>
+                        <TextField fullWidth
+                                   InputProps={{
+                                       style: {fontSize: 25},
+                                       startAdornment: <Typography sx={{
+                                           fontSize: 30,
+                                           pl: 2,
+                                           fontWeight: 'medium'
+                                       }}>https://github.com/</Typography>,
+                                       placeholder: "YourId",
+                                       endAdornment: <Button sx={{
+                                           height: "50px",
+                                           fontSize: 30,
+                                           fontWeight: "bold",
+                                           mr: 1,
+                                           minWidth: "120px",
+                                           justifyContent: "center",
+                                       }} onClick={generateChart}>Show</Button>,
+                                   }}
+                                   onChange={(e) => setChartId(e.target.value)}
+                        ></TextField>
+                    </Grid>
+                    <AreaChart data={data}/>
+                </Grid>
             </Container>
         </ThemeProvider>
     </>
 }
 
 export default Page;
+
+const data: DailyClicks[] = [
+    {
+        "date": "2023-11-09",
+        "clicks": 27
+    },
+    {
+        "date": "2023-11-10",
+        "clicks": 202
+    },
+    {
+        "date": "2023-11-11",
+        "clicks": 155
+    },
+    {
+        "date": "2023-11-12",
+        "clicks": 219
+    },
+    {
+        "date": "2023-11-13",
+        "clicks": 185
+    },
+    {
+        "date": "2023-11-14",
+        "clicks": 209
+    },
+    {
+        "date": "2023-11-15",
+        "clicks": 226
+    },
+    {
+        "date": "2023-11-15",
+        "clicks": 84
+    },
+]

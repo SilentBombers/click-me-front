@@ -20,9 +20,7 @@ interface PropType {
 }
 
 const Ranking = (props: PropType) => {
-
     const {rank} = props;
-
 
     return (
         <>
@@ -30,7 +28,8 @@ const Ranking = (props: PropType) => {
                 Ranking
             </Typography>
             <Grid container spacing={1} sx={{
-                pt: 4, display: "flex",
+                pt: 4,
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center"
             }}>
