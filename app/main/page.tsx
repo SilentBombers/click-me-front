@@ -81,7 +81,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                             <a href={"https://clickme.today/main"}><img
-                                src={"https://clickme.today/api/v1/svg-image?name=" + setSiteId()}/></a>
+                                src={"https://clickme.today/api/v1/svg-image?name=" + siteId}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
