@@ -43,43 +43,43 @@ const Ranking = (props: PropType) => {
                 }}>
                     <Link href={"https://github.com/" + rank[0]?.nickname}>
                         <Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                src={"https://clickme.today/api/clicks/count?id=" + rank[0]?.nickname}/>
+                                src={"https://clickme.today/api/v1/svg-image?name=" + rank[0]?.nickname}/>
                     </Link></Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[0]?.count / rank[0]?.count * 100}/> </Grid>
-                <Grid item xs={3}> {rank[0]?.count + 1}</Grid>
+                <Grid item xs={3}> {rank[0]?.count}</Grid>
                 <Grid item xs={2} sx={{
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>2</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/clicks/count?id=" + rank[1]?.nickname}/>
+                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[1]?.nickname}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[1]?.count / rank[0]?.count * 100}/> </Grid>
-                <Grid item xs={3}> {rank[1]?.count + 1}</Grid>
+                <Grid item xs={3}> {rank[1]?.count}</Grid>
                 <Grid item xs={2} sx={{
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>3</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/clicks/count?id=" + rank[2]?.nickname}/>
+                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[2]?.nickname}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
                 item
-                xs={3}> {rank[2]?.count + 1}</Grid>
+                xs={3}> {rank[2]?.count}</Grid>
                 <Grid item xs={2} sx={{
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>4</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/clicks/count?id=" + rank[3]?.nickname}/>
+                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[3]?.nickname}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
                 item
-                xs={3}> {rank[3]?.count + 1}</Grid>
+                xs={3}> {rank[3]?.count}</Grid>
             </Grid>
         </>
     );

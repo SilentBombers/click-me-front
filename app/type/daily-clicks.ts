@@ -1,4 +1,4 @@
 export type DailyClicks = {
     date: string,
-    clicks: number,
+    clickCount: number,
 }

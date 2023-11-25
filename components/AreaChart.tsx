@@ -11,7 +11,7 @@ export default function AreaChart(props: PropType) {
         <LineChart
             width={800}
             height={400}
-            series={[{data: data.map(it => it.clicks), label: 'daily clicks', area: true, showMark: false}]}
+            series={[{data: data.map(it => it.clickCount), label: 'daily clicks', area: true, showMark: false}]}
             xAxis={[{scaleType: 'point', data: data.map(it => it.date)}]}
             sx={{
                 '.MuiLineElement-root': {

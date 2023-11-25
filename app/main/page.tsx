@@ -22,9 +22,9 @@ const theme = createTheme({
 const Page = () => {
     const [siteId, setSiteId] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
-        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/clicks/count?id=YourId"/>' + '</a>')
+        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/v1/svg-image?name=YourId"/>' + '</a>')
     const generateCode = () => {
-        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/clicks/count?id=' + siteId + '"/>' + '</a>')
+        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=' + siteId + '"/>' + '</a>')
     }
 
     const [rank, setRank] = useState<Rank[]>([])
@@ -50,7 +50,7 @@ const Page = () => {
             endRank: "5",
         }).toString();
 
-        fetch(`https://clickme.today/api/clicks/realtime?` + s)
+        fetch(`https://clickme.today/api/v1/rankings/live?` + s)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -81,7 +81,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                             <a href={"https://clickme.today/main"}><img
-                                src={"http://localhost:8080/api/clicks/count?id=123"}/></a>
+                                src={"http://localhost:8080/api/v1/svg-image?name==123"}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
@@ -133,34 +133,34 @@ export default Page;
 const data: DailyClicks[] = [
     {
         "date": "2023-11-09",
-        "clicks": 27
+        "clickCount": 27
     },
     {
         "date": "2023-11-10",
-        "clicks": 202
+        "clickCount": 202
     },
     {
         "date": "2023-11-11",
-        "clicks": 155
+        "clickCount": 155
     },
     {
         "date": "2023-11-12",
-        "clicks": 219
+        "clickCount": 219
     },
     {
         "date": "2023-11-13",
-        "clicks": 185
+        "clickCount": 185
     },
     {
         "date": "2023-11-14",
-        "clicks": 209
+        "clickCount": 209
     },
     {
         "date": "2023-11-15",
-        "clicks": 226
+        "clickCount": 226
     },
     {
         "date": "2023-11-15",
-        "clicks": 84
+        "clickCount": 84
     },
 ]
