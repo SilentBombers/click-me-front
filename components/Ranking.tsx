@@ -40,11 +40,11 @@ const Ranking = (props: PropType) => {
                 <Grid item xs={1} sx={{
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
-                }}>
-                    <Link href={"https://github.com/" + rank[0]?.nickname}>
-                        <Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                src={rank[0]?.profileImageUrl}/>
-                    </Link></Grid>
+                }}></Grid>
+                <Grid><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
+                            src={rank[0]?.profileImageUrl}/>
+                </Grid>
+
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[0]?.count / rank[0]?.count * 100}/> </Grid>
                 <Grid item xs={3}> {rank[0]?.count}</Grid>
@@ -53,7 +53,7 @@ const Ranking = (props: PropType) => {
                     alignItems: "flex-end"
                 }}>2</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[1]?.nickname}/>
+                                          src={rank[1]?.profileImageUrl}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[1]?.count / rank[0]?.count * 100}/> </Grid>
@@ -63,7 +63,7 @@ const Ranking = (props: PropType) => {
                     alignItems: "flex-end"
                 }}>3</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[2]?.nickname}/>
+                                          src={rank[2]?.profileImageUrl}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
@@ -74,7 +74,7 @@ const Ranking = (props: PropType) => {
                     alignItems: "flex-end"
                 }}>4</Grid>
                 <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={"https://clickme.today/api/v1/svg-image?name=" + rank[3]?.nickname}/>
+                                          src={rank[3]?.profileImageUrl}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
