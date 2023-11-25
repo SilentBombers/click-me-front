@@ -31,9 +31,8 @@ const Page = () => {
     const [rank, setRank] = useState<Rank[]>([])
 
     const [chartId, setChartId] = useState<string>("YourId");
-    const [charData, setChartData] = useState<DailyClicks[]>(data);
+    const [chartData, setChartData] = useState<DailyClicks[]>(data);
 
-    //TODO 여기를 고치시오.
     const generateChart = () => {
         fetch(`https://clickme.today/api/v1/daily-click-count/` + chartId)
             .then(res => res.json())
@@ -121,7 +120,7 @@ const Page = () => {
                                    onChange={(e) => setChartId(e.target.value)}
                         ></TextField>
                     </Grid>
-                    <AreaChart data={data}/>
+                    <AreaChart data={chartData.length != 7 ? data : chartData}/>
                 </Grid>
             </Container>
         </ThemeProvider>

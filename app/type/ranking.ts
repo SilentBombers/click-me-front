@@ -1,6 +1,6 @@
 export type Rank = {
-    rank: number;
+    ranking: number;
     nickname: string;
     count: number;
-    profileImageUrl: string;
+    profileImage: string;
 }

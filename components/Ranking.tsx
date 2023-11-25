@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Grid, LinearProgress, linearProgressClasses, Link, Typography} from "@mui/material";
+import {Avatar, Grid, LinearProgress, linearProgressClasses, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import {Rank} from "@/app/type/ranking";
 
@@ -37,14 +37,9 @@ const Ranking = (props: PropType) => {
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>1</Grid>
-                <Grid item xs={1} sx={{
-                    display: "flex", justifyContent: "flex-end",
-                    alignItems: "flex-end"
-                }}></Grid>
-                <Grid><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                            src={rank[0]?.profileImageUrl}/>
+                <Grid item xs={1}><Avatar
+                    src={rank[0]?.profileImage}/>
                 </Grid>
-
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[0]?.count / rank[0]?.count * 100}/> </Grid>
                 <Grid item xs={3}> {rank[0]?.count}</Grid>
@@ -52,8 +47,8 @@ const Ranking = (props: PropType) => {
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>2</Grid>
-                <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={rank[1]?.profileImageUrl}/>
+                <Grid item xs={1}><Avatar
+                    src={rank[1]?.profileImage}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[1]?.count / rank[0]?.count * 100}/> </Grid>
@@ -62,8 +57,8 @@ const Ranking = (props: PropType) => {
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>3</Grid>
-                <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={rank[2]?.profileImageUrl}/>
+                <Grid item xs={1}><Avatar alt="Remy Sharp"
+                                          src={rank[2]?.profileImage}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
@@ -73,8 +68,7 @@ const Ranking = (props: PropType) => {
                     display: "flex", justifyContent: "flex-end",
                     alignItems: "flex-end"
                 }}>4</Grid>
-                <Grid item xs={1}><Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                          src={rank[3]?.profileImageUrl}/>
+                <Grid item xs={1}><Avatar src={rank[3]?.profileImage}/>
                 </Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
