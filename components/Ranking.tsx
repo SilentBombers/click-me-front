@@ -43,7 +43,7 @@ const Ranking = (props: PropType) => {
                 }}>
                     <Link href={"https://github.com/" + rank[0]?.nickname}>
                         <Avatar sx={{minWidth: 80}} alt="Remy Sharp"
-                                src={"https://clickme.today/api/v1/svg-image?name=" + rank[0]?.nickname}/>
+                                src={rank[0]?.profileImageUrl}/>
                     </Link></Grid>
                 <Grid item xs={6}><BorderLinearProgress variant="determinate"
                                                         value={rank[0]?.count / rank[0]?.count * 100}/> </Grid>
