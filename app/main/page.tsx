@@ -24,6 +24,7 @@ const Page = () => {
     const [siteText, setSiteText] = useState<string>(
         '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/v1/svg-image?name=YourId"/>' + '</a>')
     const generateCode = () => {
+        setSiteId(siteId)
         setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=' + siteId + '"/>' + '</a>')
     }
 
@@ -34,14 +35,13 @@ const Page = () => {
 
     //TODO 여기를 고치시오.
     const generateChart = () => {
-        //주석을 해제하고 밑에 주소를 바꾸면 됩니다.
-        // fetch(`https://clickme.today/api/clicks/realtime?` + chartId)
-        //     .then(res => res.json())
-        //     .then(
-        //         (result) => {
-        //             setChartData(result as DailyClicks[]);
-        //         }
-        //     )
+        fetch(`https://clickme.today/api/v1/daily-click-count/` + chartId)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setChartData(result as DailyClicks[]);
+                }
+            )
     }
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const Page = () => {
                             alignItems: "center",
                         }}>
                             <a href={"https://clickme.today/main"}><img
-                                src={"http://localhost:8080/api/v1/svg-image?name=123"}/></a>
+                                src={"https://clickme.today/api/v1/svg-image?name=123"}/></a>
                         </Grid>
                         <Grid item xs={6}>
                             <CodeBlock siteText={siteText}/>
