@@ -31,7 +31,7 @@ const Page = () => {
     const [rank, setRank] = useState<Rank[]>([])
 
     const [chartId, setChartId] = useState<string>("YourId");
-    const [chartData, setChartData] = useState<DailyClicks[]>(data);
+    const [chartData, setChartData] = useState<DailyClicks[]>();
 
     const generateChart = () => {
         fetch(`https://clickme.today/api/v1/daily-click-count/` + chartId)
@@ -45,8 +45,8 @@ const Page = () => {
 
     useEffect(() => {
         const s = new URLSearchParams({
-            startRank: "1",
-            endRank: "5",
+            startRank: "0",
+            endRank: "4",
         }).toString();
 
         fetch(`https://clickme.today/api/v1/rankings/live?` + s)
@@ -120,7 +120,7 @@ const Page = () => {
                                    onChange={(e) => setChartId(e.target.value)}
                         ></TextField>
                     </Grid>
-                    <AreaChart data={chartData.length != 7 ? data : chartData}/>
+                    <AreaChart data={chartData == undefined ? data : chartData}/>
                 </Grid>
             </Container>
         </ThemeProvider>

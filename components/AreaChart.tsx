@@ -13,11 +13,6 @@ export default function AreaChart(props: PropType) {
             height={400}
             series={[{data: data.map(it => it.clickCount), label: 'daily clicks', area: true, showMark: false}]}
             xAxis={[{scaleType: 'point', data: data.map(it => it.date)}]}
-            sx={{
-                '.MuiLineElement-root': {
-                    display: 'none',
-                },
-            }}
         />
     );
 }
