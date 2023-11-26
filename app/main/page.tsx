@@ -22,7 +22,7 @@ const theme = createTheme({
 const Page = () => {
     const [siteId, setSiteId] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
-        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/v1/svg-image?name=YourId"/>' + '</a>')
+        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=YourId"/>' + '</a>')
     const generateCode = () => {
         setSiteId(siteId)
         setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=' + siteId + '"/>' + '</a>')
