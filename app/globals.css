@@ -1,6 +1,6 @@
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
     --foreground-rgb: 0, 0, 0;
@@ -9,57 +9,29 @@
     transform: scale(0.8);
     transform-origin: top;
 }
-/*@media only screen and (max-width: 600px) {*/
-/*    !* 스타일 정의 *!*/
-/*}*/
-
-/*html, body, #root {*/
-/*    padding: 0px !important;;*/
-/*    margin: 0px !important;;*/
-/*    height: 100vh;*/
-/*    width: 100vw;*/
-/*}*/
-
-
-/*@media (prefers-color-scheme: dark) {*/
-/*  :root {*/
-/*    --foreground-rgb: 255, 255, 255;*/
-/*    --background-start-rgb: 0, 0, 0;*/
-/*    --background-end-rgb: 0, 0, 0;*/
-/*  }*/
-/*}*/
 
 body {
     color: rgb(var(--foreground-rgb));
     background: #f7f7f7;
 }
 
-
-/*body {*/
-/*  color: rgb(var(--foreground-rgb));*/
-/*  background: linear-gradient(*/
-/*      to bottom,*/
-/*      transparent,*/
-/*      rgb(var(--background-end-rgb))*/
-/*    )*/
-/*    rgb(var(--background-start-rgb));*/
-/*}*/
-
-
-/*.slider {*/
-/*  color: #20b2aa;*/
-/*}*/
-
-/*.slider:hover {*/
-/*  color: #2e8b57;*/
-/*}*/
-
-/*.slider .MuiSlider-thumb {*/
-/*  border-radius: 1px;*/
-/*}*/
-
-
 .divchart {
     height: 100vh;
     margin: 4rem;
+}
+
+/* 추가된 작은 화면용 스타일 */
+@media only screen and (max-width: 600px) {
+    .responsive-container {
+        flex-direction: column;
+    }
+
+    .responsive-button {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .responsive-textfield {
+        width: 100%;
+    }
 }

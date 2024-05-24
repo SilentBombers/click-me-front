@@ -1,5 +1,5 @@
 "use client"
-import {Box, Button, Container, Grid, TextField, ThemeProvider, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, TextField, ThemeProvider, Typography, useMediaQuery} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {createTheme} from "@mui/material/styles";
 import {amber, deepOrange} from "@mui/material/colors";
@@ -58,6 +58,8 @@ const Page = () => {
             )
     }, [])
 
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return <>
         <ThemeProvider theme={theme}>
             <Nav></Nav>
@@ -71,10 +73,9 @@ const Page = () => {
                 }}>
                     <Description/>
                     <GenerateCodeTextField onButtonClick={generateCode} setSiteId={setSiteId} buttonText={"Generate"}/>
-                    <Grid item xs={1.5} sx={{pt: 2}}></Grid>
-                    <Grid container>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={4} sx={{
+                    <Grid item xs={12} sx={{pt: 2}}></Grid>
+                    <Grid container spacing={isSmallScreen ? 2 : 4}>
+                        <Grid item xs={12} md={4} sx={{
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
@@ -82,10 +83,10 @@ const Page = () => {
                             <a href={"https://clickme.today/main"}><img
                                 src={"https://clickme.today/api/v1/svg-image?name=" + siteId}/></a>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <CodeBlock siteText={siteText}/>
                         </Grid>
-                        <Grid item xs={1}></Grid>
+                        <Grid item xs={false} md={1}></Grid>
                     </Grid>
                 </Box>
                 <Ranking rank={rank || []}></Ranking>
@@ -96,31 +97,35 @@ const Page = () => {
                     pt: 4,
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center"
-                }}>
-                    <Grid item xs={8} sx={{mb: 5}}>
+                    alignItems: "center",
+                    flexDirection: isSmallScreen ? "column" : "row"
+                }} className="responsive-container">
+                    <Grid item xs={12} md={8} sx={{mb: 5, display: 'flex', flexDirection: isSmallScreen ? "column" : "row"}}>
                         <TextField fullWidth
+                                   className="responsive-textfield"
                                    InputProps={{
-                                       style: {fontSize: 25},
+                                       style: {fontSize: isSmallScreen ? 20 : 25},
                                        startAdornment: <Typography sx={{
-                                           fontSize: 30,
+                                           fontSize: isSmallScreen ? 20 : 30,
                                            pl: 2,
                                            fontWeight: 'medium'
                                        }}>https://github.com/</Typography>,
-                                       placeholder: "YourId",
-                                       endAdornment: <Button sx={{
-                                           height: "50px",
-                                           fontSize: 30,
-                                           fontWeight: "bold",
-                                           mr: 1,
-                                           minWidth: "120px",
-                                           justifyContent: "center",
-                                       }} onClick={generateChart}>Show</Button>,
                                    }}
                                    onChange={(e) => setChartId(e.target.value)}
-                        ></TextField>
+                        />
+                        <Button sx={{
+                            height: "50px",
+                            fontSize: isSmallScreen ? 20 : 30,
+                            fontWeight: "bold",
+                            ml: isSmallScreen ? 0 : 1,
+                            mt: isSmallScreen ? 1 : 0,
+                            minWidth: "120px",
+                            justifyContent: "center",
+                        }} className="responsive-button" onClick={generateChart}>Show</Button>
                     </Grid>
-                    <AreaChart data={chartData == undefined ? data : chartData}/>
+                    <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
+                        <AreaChart data={chartData == undefined ? data : chartData} />
+                    </Grid>
                 </Grid>
             </Container>
         </ThemeProvider>
