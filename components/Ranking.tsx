@@ -22,6 +22,27 @@ interface PropType {
 const Ranking = (props: PropType) => {
     const {rank} = props;
 
+    const renderRankingItem = (index: number) => (
+        <>
+            <Grid item xs={2} sx={{
+                display: "flex", justifyContent: "flex-end",
+                alignItems: "flex-end"
+            }}>{index + 1}</Grid>
+            <Grid item xs={1}>
+                <a href={`https://github.com/${rank[index]?.nickname}`} target="_blank" rel="noopener noreferrer">
+                    <Avatar src={rank[index]?.profileImage} />
+                </a>
+            </Grid>
+            <Grid item xs={6}>
+                <BorderLinearProgress variant="determinate"
+                    value={rank[index]?.count / rank[0]?.count * 100} />
+            </Grid>
+            <Grid item xs={3}>
+                {rank[index]?.count}
+            </Grid>
+        </>
+    );
+
     return (
         <>
             <Typography variant={"h2"} sx={{fontWeight: 'bold', textAlign: 'center', mt: 8}}>
@@ -33,47 +54,7 @@ const Ranking = (props: PropType) => {
                 justifyContent: "center",
                 alignItems: "center"
             }}>
-                <Grid item xs={2} sx={{
-                    display: "flex", justifyContent: "flex-end",
-                    alignItems: "flex-end"
-                }}>1</Grid>
-                <Grid item xs={1}><Avatar
-                    src={rank[0]?.profileImage}/>
-                </Grid>
-                <Grid item xs={6}><BorderLinearProgress variant="determinate"
-                                                        value={rank[0]?.count / rank[0]?.count * 100}/> </Grid>
-                <Grid item xs={3}> {rank[0]?.count}</Grid>
-                <Grid item xs={2} sx={{
-                    display: "flex", justifyContent: "flex-end",
-                    alignItems: "flex-end"
-                }}>2</Grid>
-                <Grid item xs={1}><Avatar
-                    src={rank[1]?.profileImage}/>
-                </Grid>
-                <Grid item xs={6}><BorderLinearProgress variant="determinate"
-                                                        value={rank[1]?.count / rank[0]?.count * 100}/> </Grid>
-                <Grid item xs={3}> {rank[1]?.count}</Grid>
-                <Grid item xs={2} sx={{
-                    display: "flex", justifyContent: "flex-end",
-                    alignItems: "flex-end"
-                }}>3</Grid>
-                <Grid item xs={1}><Avatar alt="Remy Sharp"
-                                          src={rank[2]?.profileImage}/>
-                </Grid>
-                <Grid item xs={6}><BorderLinearProgress variant="determinate"
-                                                        value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
-                item
-                xs={3}> {rank[2]?.count}</Grid>
-                <Grid item xs={2} sx={{
-                    display: "flex", justifyContent: "flex-end",
-                    alignItems: "flex-end"
-                }}>4</Grid>
-                <Grid item xs={1}><Avatar src={rank[3]?.profileImage}/>
-                </Grid>
-                <Grid item xs={6}><BorderLinearProgress variant="determinate"
-                                                        value={rank[3]?.count / rank[0]?.count * 100}/> </Grid><Grid
-                item
-                xs={3}> {rank[3]?.count}</Grid>
+                {rank.slice(0, 5).map((_, index) => renderRankingItem(index))}
             </Grid>
         </>
     );

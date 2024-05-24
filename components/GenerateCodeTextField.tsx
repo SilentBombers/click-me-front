@@ -1,8 +1,8 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import {styled} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
-const StyledTextField = styled(TextField)(({theme}) => ({
+const StyledTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
         height: "80px",
         fontSize: 35,
@@ -20,6 +20,29 @@ const StyledTextField = styled(TextField)(({theme}) => ({
     },
 }));
 
+const ResponsiveButton = styled(Button)(({ theme }) => ({
+    color: "rgba(242, 162, 41)",
+    height: "60px",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginRight: theme.spacing(2),
+    minWidth: "180px",
+    justifyContent: "center",
+    [theme.breakpoints.down('sm')]: {
+        fontSize: 20,
+        minWidth: "140px",
+    },
+}));
+
+const ResponsiveTypography = styled(Typography)(({ theme }) => ({
+    fontSize: 40,
+    paddingLeft: theme.spacing(2),
+    fontWeight: 'medium',
+    [theme.breakpoints.down('sm')]: {
+        fontSize: 25,
+    },
+}));
+
 interface PropType {
     onButtonClick?: () => void;
     setSiteId?: (s: string) => void;
@@ -27,43 +50,30 @@ interface PropType {
 }
 
 const GenerateCodeTextField = (props: PropType) => {
-
-    const {onButtonClick, setSiteId, buttonText} = props;
+    const { onButtonClick, setSiteId, buttonText } = props;
 
     return (
-        <>
-            <Grid container sx={{pt: 8, justifyContent: "center",}}>
-                <Grid item xs={10} sx={{pt: 2, pb: 2}}>
-                    <StyledTextField
-                        fullWidth
-                        InputProps={{
-                            startAdornment: <Typography sx={{
-                                fontSize: 40,
-                                pl: 2,
-                                fontWeight: 'medium'
-                            }}>https://github.com/</Typography>,
-                            placeholder: "YourId",
-                            endAdornment: <Button sx={{
-                                color: "rgba(242, 162, 41)",
-                                height: "60px",
-                                fontSize: 30,
-                                fontWeight: "bold",
-                                mr: 2,
-                                minWidth: "180px",
-                                justifyContent: "center",
-                            }}
-                                                  onClick={onButtonClick}>{buttonText}</Button>,
-                        }}
-                        variant="outlined"
-                        onChange={(e) => {
-                            setSiteId?.(e.target.value)
-                        }}
-                    >
-                    </StyledTextField>
-                </Grid>
+        <Grid container sx={{ pt: 8, justifyContent: "center" }}>
+            <Grid item xs={10} sx={{ pt: 2, pb: 2 }}>
+                <StyledTextField
+                    fullWidth
+                    InputProps={{
+                        startAdornment: <ResponsiveTypography>https://github.com/</ResponsiveTypography>,
+                        placeholder: "YourId",
+                        endAdornment: (
+                            <ResponsiveButton onClick={onButtonClick} aria-label="generate code">
+                                {buttonText}
+                            </ResponsiveButton>
+                        ),
+                    }}
+                    variant="outlined"
+                    onChange={(e) => {
+                        setSiteId?.(e.target.value);
+                    }}
+                />
             </Grid>
-        </>
+        </Grid>
     );
-}
+};
 
 export default GenerateCodeTextField;

@@ -22,47 +22,49 @@ const theme = createTheme({
 const Page = () => {
     const [siteId, setSiteId] = useState<string>("");
     const [siteText, setSiteText] = useState<string>(
-        '<a align="center" href="https://www.github.com/YourId">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=YourId"/>' + '</a>')
+        '<a align="center" href="https://www.github.com/YourId">' +
+        '<img src="https://clickme.today/api/v1/svg-image/increment?name=YourId"/>' +
+        '</a>'
+    );
+
     const generateCode = () => {
-        setSiteId(siteId)
-        setSiteText('<a align="center" href="https://www.github.com/' + siteId + '">' + '<img src="https://clickme.today/api/v1/svg-image/increment?name=' + siteId + '"/>' + '</a>')
+        setSiteText(
+            '<a align="center" href="https://www.github.com/' + siteId + '">' +
+            '<img src="https://clickme.today/api/v1/svg-image/increment?name=' + siteId + '"/>' +
+            '</a>'
+        );
     }
 
-    const [rank, setRank] = useState<Rank[]>([])
-
+    const [rank, setRank] = useState<Rank[]>([]);
     const [chartId, setChartId] = useState<string>("YourId");
     const [chartData, setChartData] = useState<DailyClicks[]>();
 
     const generateChart = () => {
-        fetch(`https://clickme.today/api/v1/daily-click-count/` + chartId)
+        fetch(`https://clickme.today/api/v1/daily-click-count/${chartId}`)
             .then(res => res.json())
-            .then(
-                (result) => {
-                    setChartData(result as DailyClicks[]);
-                }
-            )
+            .then((result) => {
+                setChartData(result as DailyClicks[]);
+            });
     }
 
     useEffect(() => {
         const s = new URLSearchParams({
             startRank: "0",
-            endRank: "4",
+            endRank: "5",
         }).toString();
 
-        fetch(`https://clickme.today/api/v1/rankings/live?` + s)
+        fetch(`https://clickme.today/api/v1/rankings/live?${s}`)
             .then(res => res.json())
-            .then(
-                (result) => {
-                    setRank(result as Rank[]);
-                }
-            )
-    }, [])
+            .then((result) => {
+                setRank(result as Rank[]);
+            });
+    }, []);
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    return <>
+    return (
         <ThemeProvider theme={theme}>
-            <Nav></Nav>
+            <Nav />
             <Container fixed>
                 <Box sx={{
                     marginTop: 8,
@@ -71,26 +73,31 @@ const Page = () => {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Description/>
-                    <GenerateCodeTextField onButtonClick={generateCode} setSiteId={setSiteId} buttonText={"Generate"}/>
-                    <Grid item xs={12} sx={{pt: 2}}></Grid>
+                    <Description />
+                    <GenerateCodeTextField
+                        onButtonClick={generateCode}
+                        setSiteId={setSiteId}
+                        buttonText="Generate"
+                    />
+                    <Grid item xs={12} sx={{ pt: 2 }}></Grid>
                     <Grid container spacing={isSmallScreen ? 2 : 4}>
                         <Grid item xs={12} md={4} sx={{
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                            <a href={"https://clickme.today/main"}><img
-                                src={"https://clickme.today/api/v1/svg-image?name=" + siteId}/></a>
+                            <a href="https://clickme.today/main">
+                                <img src={`https://clickme.today/api/v1/svg-image?name=${siteId}`} />
+                            </a>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <CodeBlock siteText={siteText}/>
+                            <CodeBlock siteText={siteText} />
                         </Grid>
                         <Grid item xs={false} md={1}></Grid>
                     </Grid>
                 </Box>
-                <Ranking rank={rank || []}></Ranking>
-                <Typography variant={"h2"} sx={{fontWeight: 'bold', textAlign: 'center', mt: 12}}>
+                <Ranking rank={rank || []} />
+                <Typography variant="h2" sx={{ fontWeight: 'bold', textAlign: 'center', mt: 12 }}>
                     Click History
                 </Typography>
                 <Grid container spacing={1} sx={{
@@ -98,7 +105,7 @@ const Page = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection: isSmallScreen ? "column" : "row"
+                    flexDirection: isSmallScreen ? "column" : "row",
                 }} className="responsive-container">
                     <Grid item xs={12} md={8} sx={{mb: 5, display: 'flex', flexDirection: isSmallScreen ? "column" : "row"}}>
                         <TextField fullWidth
@@ -121,50 +128,28 @@ const Page = () => {
                             mt: isSmallScreen ? 1 : 0,
                             minWidth: "120px",
                             justifyContent: "center",
-                        }} className="responsive-button" onClick={generateChart}>Show</Button>
+                        }} className="responsive-button" onClick={generateChart}>
+                            Show
+                        </Button>
                     </Grid>
-                    <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                        <AreaChart data={chartData == undefined ? data : chartData} />
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <AreaChart data={chartData ?? data} />
                     </Grid>
                 </Grid>
             </Container>
         </ThemeProvider>
-    </>
+    );
 }
 
 export default Page;
 
 const data: DailyClicks[] = [
-    {
-        "date": "2023-11-09",
-        "clickCount": 27
-    },
-    {
-        "date": "2023-11-10",
-        "clickCount": 202
-    },
-    {
-        "date": "2023-11-11",
-        "clickCount": 155
-    },
-    {
-        "date": "2023-11-12",
-        "clickCount": 219
-    },
-    {
-        "date": "2023-11-13",
-        "clickCount": 185
-    },
-    {
-        "date": "2023-11-14",
-        "clickCount": 209
-    },
-    {
-        "date": "2023-11-15",
-        "clickCount": 226
-    },
-    {
-        "date": "2023-11-15",
-        "clickCount": 84
-    },
-]
+    { "date": "2023-11-09", "clickCount": 27 },
+    { "date": "2023-11-10", "clickCount": 202 },
+    { "date": "2023-11-11", "clickCount": 155 },
+    { "date": "2023-11-12", "clickCount": 219 },
+    { "date": "2023-11-13", "clickCount": 185 },
+    { "date": "2023-11-14", "clickCount": 209 },
+    { "date": "2023-11-15", "clickCount": 226 },
+    { "date": "2023-11-16", "clickCount": 84 },
+];
