@@ -62,6 +62,22 @@ const Page = () => {
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const generateDummyData = (): DailyClicks[] => {
+        const currentDate = new Date();
+        const dummyData: DailyClicks[] = [];
+
+        for (let i = 7; i >= 1; i--) {
+            const date = new Date(currentDate);
+            date.setDate(currentDate.getDate() - i);
+            dummyData.push({
+                date: date.toISOString().split('T')[0],
+                clickCount: Math.floor(Math.random() * 200) + 50,
+            });
+        }
+
+        return dummyData;
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <Nav />
@@ -133,7 +149,7 @@ const Page = () => {
                         </Button>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <AreaChart data={chartData ?? data} />
+                        <AreaChart data={chartData ?? generateDummyData()} />
                     </Grid>
                 </Grid>
             </Container>
@@ -142,14 +158,3 @@ const Page = () => {
 }
 
 export default Page;
-
-const data: DailyClicks[] = [
-    { "date": "2023-11-09", "clickCount": 27 },
-    { "date": "2023-11-10", "clickCount": 202 },
-    { "date": "2023-11-11", "clickCount": 155 },
-    { "date": "2023-11-12", "clickCount": 219 },
-    { "date": "2023-11-13", "clickCount": 185 },
-    { "date": "2023-11-14", "clickCount": 209 },
-    { "date": "2023-11-15", "clickCount": 226 },
-    { "date": "2023-11-16", "clickCount": 84 },
-];
