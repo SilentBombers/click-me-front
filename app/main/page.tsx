@@ -37,7 +37,7 @@ const Page = () => {
 
     const [rank, setRank] = useState<Rank[]>([]);
     const [chartId, setChartId] = useState<string>("YourId");
-    const [chartData, setChartData] = useState<DailyClick[]>();
+    const [chartData, setChartData] = useState<DailyClick[] | null>(null);
 
     const generateChart = () => {
         fetch(`https://clickme.today/api/v1/daily-click-count/${chartId}`)
@@ -81,6 +81,12 @@ const Page = () => {
 
         return dummyData;
     }
+
+    useEffect(() => {
+        if (!chartData) {
+            setChartData(generateDummyData());
+        }
+    }, []);
 
     return (
         <ThemeProvider theme={theme}>
