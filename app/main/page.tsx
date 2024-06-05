@@ -10,7 +10,7 @@ import {Rank} from "@/app/type/ranking";
 import Description from "@/components/Description";
 import GenerateCodeTextField from "@/components/GenerateCodeTextField";
 import AreaChart from "@/components/AreaChart";
-import {DailyClicks} from "@/app/type/daily-clicks";
+import {DailyClick, DailyClicks} from "@/app/type/daily-clicks";
 
 const theme = createTheme({
     palette: {
@@ -37,13 +37,17 @@ const Page = () => {
 
     const [rank, setRank] = useState<Rank[]>([]);
     const [chartId, setChartId] = useState<string>("YourId");
-    const [chartData, setChartData] = useState<DailyClicks[]>();
+    const [chartData, setChartData] = useState<DailyClick[]>();
 
     const generateChart = () => {
         fetch(`https://clickme.today/api/v1/daily-click-count/${chartId}`)
             .then(res => res.json())
-            .then((result) => {
-                setChartData(result as DailyClicks[]);
+            .then((result: DailyClicks) => {
+                const formattedData = result.dailyClicks.map(item => ({
+                    date: item.date,
+                    clickCount: item.clickCount,
+                }));
+                setChartData(formattedData);
             });
     }
 
@@ -62,9 +66,9 @@ const Page = () => {
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const generateDummyData = (): DailyClicks[] => {
+    const generateDummyData = (): DailyClick[] => {
         const currentDate = new Date();
-        const dummyData: DailyClicks[] = [];
+        const dummyData: DailyClick[] = [];
 
         for (let i = 7; i >= 1; i--) {
             const date = new Date(currentDate);

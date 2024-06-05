@@ -1,10 +1,10 @@
 import React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { DailyClicks } from "@/app/type/daily-clicks";
+import { DailyClick } from "@/app/type/daily-clicks";
 import { useTheme, useMediaQuery } from "@mui/material";
 
 type PropType = {
-    data: DailyClicks[]
+    data: DailyClick[]
 }
 
 export default function AreaChart(props: PropType) {
