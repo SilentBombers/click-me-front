@@ -3,6 +3,6 @@ export type DailyClick = {
     clickCount: number,
 }
 
-export type DailyClicks = {
-    dailyClicks: DailyClick[];
+export type DailyClicksResponse = {
+    clickCountHistories: DailyClick[];
 }

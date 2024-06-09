@@ -39,14 +39,18 @@ const Page = () => {
     const [chartId, setChartId] = useState<string>("YourId");
     const [chartData, setChartData] = useState<DailyClick[] | null>(null);
 
+    const transformApiResponse = (apiResponse: DailyClicksResponse): DailyClick[] => {
+        return apiResponse.clickCountHistories.map(item => ({
+            date: item.date,
+            clickCount: item.clickCount,
+        }));
+    }
+
     const generateChart = () => {
         fetch(`https://clickme.today/api/v1/daily-click-count/${chartId}`)
             .then(res => res.json())
             .then((result: DailyClicks) => {
-                const formattedData = result.dailyClicks.map(item => ({
-                    date: item.date,
-                    clickCount: item.clickCount,
-                }));
+                const formattedData = transformApiResponse(result);
                 setChartData(formattedData);
             });
     }
@@ -86,7 +90,7 @@ const Page = () => {
         if (!chartData) {
             setChartData(generateDummyData());
         }
-    }, []);
+    }, [chartData]);
 
     return (
         <ThemeProvider theme={theme}>
