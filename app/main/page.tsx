@@ -1,16 +1,16 @@
 "use client"
-import {Box, Button, Container, Grid, TextField, ThemeProvider, Typography, useMediaQuery} from "@mui/material";
-import React, {useEffect, useState} from "react";
-import {createTheme} from "@mui/material/styles";
-import {amber, deepOrange} from "@mui/material/colors";
+import { Box, Button, Container, Grid, TextField, ThemeProvider, Typography, useMediaQuery } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { createTheme } from "@mui/material/styles";
+import { amber, deepOrange } from "@mui/material/colors";
 import Nav from "@/components/Nav";
 import CodeBlock from "@/components/CodeBlock";
 import Ranking from "@/components/Ranking";
-import {Rank} from "@/app/type/ranking";
+import { Rank } from "@/app/type/ranking";
 import Description from "@/components/Description";
 import GenerateCodeTextField from "@/components/GenerateCodeTextField";
 import AreaChart from "@/components/AreaChart";
-import {DailyClick, DailyClicks} from "@/app/type/daily-clicks";
+import {DailyClick, DailyClicksResponse} from "@/app/type/daily-clicks";
 
 const theme = createTheme({
     palette: {
@@ -37,7 +37,8 @@ const Page = () => {
 
     const [rank, setRank] = useState<Rank[]>([]);
     const [chartId, setChartId] = useState<string>("YourId");
-    const [chartData, setChartData] = useState<DailyClick[] | null>(null);
+    const [chartData, setChartData] = useState<DailyClick[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const transformApiResponse = (apiResponse: DailyClicksResponse): DailyClick[] => {
         return apiResponse.clickCountHistories.map(item => ({
@@ -47,11 +48,15 @@ const Page = () => {
     }
 
     const generateChart = () => {
+        setIsLoading(true);
         fetch(`https://clickme.today/api/v1/daily-click-count/${chartId}`)
             .then(res => res.json())
-            .then((result: DailyClicks) => {
+            .then((result: DailyClicksResponse) => {
                 const formattedData = transformApiResponse(result);
                 setChartData(formattedData);
+                setIsLoading(false);
+            }).catch(() => {
+                setIsLoading(false);
             });
     }
 
@@ -70,27 +75,9 @@ const Page = () => {
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const generateDummyData = (): DailyClick[] => {
-        const currentDate = new Date();
-        const dummyData: DailyClick[] = [];
-
-        for (let i = 7; i >= 1; i--) {
-            const date = new Date(currentDate);
-            date.setDate(currentDate.getDate() - i);
-            dummyData.push({
-                date: date.toISOString().split('T')[0],
-                clickCount: Math.floor(Math.random() * 200) + 50,
-            });
-        }
-
-        return dummyData;
-    }
-
     useEffect(() => {
-        if (!chartData) {
-            setChartData(generateDummyData());
-        }
-    }, [chartData]);
+        generateChart();
+    }, []);
 
     return (
         <ThemeProvider theme={theme}>
@@ -163,7 +150,7 @@ const Page = () => {
                         </Button>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <AreaChart data={chartData ?? generateDummyData()} />
+                        {isLoading ? <div>Loading...</div> : <AreaChart data={chartData} />}
                     </Grid>
                 </Grid>
             </Container>

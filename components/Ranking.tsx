@@ -23,7 +23,7 @@ const Ranking = (props: PropType) => {
     const {rank} = props;
 
     const renderRankingItem = (index: number) => (
-        <>
+        <React.Fragment key={index}>
             <Grid item xs={2} sx={{
                 display: "flex", justifyContent: "flex-end",
                 alignItems: "flex-end"
@@ -40,7 +40,7 @@ const Ranking = (props: PropType) => {
             <Grid item xs={3}>
                 {rank[index]?.count}
             </Grid>
-        </>
+        </React.Fragment>
     );
 
     return (
