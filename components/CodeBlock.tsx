@@ -1,20 +1,34 @@
 import React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import CopyToClipboardButton from "@/components/CopyToClipboardButton";
 
 interface PropType {
     siteText: string;
 }
 
-const CodeBlock = (props: PropType) => {
-    const { siteText } = props;
-
+const CodeBlock = ({ siteText }: PropType) => {
     return (
-        <Paper sx={{ backgroundColor: "#282a36", borderRadius: 5, p: 3 }}>
-            <Typography color="white" variant="h6" sx={{ pb: 0 }}>
-                {siteText}
-            </Typography>
-            <Grid container sx={{ justifyContent: "flex-end", alignItems: "center", pt: 1 }}>
+        <Paper
+            sx={{
+                backgroundColor: "#282a36",
+                borderRadius: 5,
+                p: 3,
+                overflowX: "auto",
+            }}
+        >
+      <pre
+          style={{
+              color: "white",
+              fontSize: "14px",
+              margin: 0,
+              fontFamily: "monospace",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+          }}
+      >
+        {siteText}
+      </pre>
+            <Grid container sx={{ justifyContent: "flex-end", pt: 1 }}>
                 <CopyToClipboardButton siteText={siteText} />
             </Grid>
         </Paper>

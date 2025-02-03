@@ -1,5 +1,5 @@
-import { Button, Snackbar } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { Button, Snackbar, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
 
 interface PropType {
     siteText: string;
@@ -15,7 +15,7 @@ const CopyToClipboardButton = (props: PropType) => {
                 setOpen(true);
             })
             .catch(err => {
-                console.error('Failed to copy: ', err);
+                console.error("Failed to copy: ", err);
             });
     };
 
@@ -33,11 +33,16 @@ const CopyToClipboardButton = (props: PropType) => {
     };
 
     return (
-        <>
+        <Box sx={{ display: "inline-flex" }}>
             <Button
                 variant="contained"
                 size="medium"
-                sx={{ borderRadius: 2, fontWeight: 'bold' }}
+                sx={{
+                    borderRadius: 2,
+                    fontWeight: "bold",
+                    backgroundColor: "rgba(242, 162, 41) !important",
+                    "&:hover": { backgroundColor: "rgba(242, 162, 41, 0.8) !important" }
+                }}
                 onClick={handleClick}
             >
                 Copy
@@ -47,11 +52,11 @@ const CopyToClipboardButton = (props: PropType) => {
                 onClose={handleClose}
                 message="Copied!"
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center'
+                    vertical: "bottom",
+                    horizontal: "center",
                 }}
             />
-        </>
+        </Box>
     );
 };
 
