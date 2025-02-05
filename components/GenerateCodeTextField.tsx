@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, {useState} from "react";
 import { styled } from "@mui/material/styles";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -50,30 +50,43 @@ interface PropType {
 }
 
 const GenerateCodeTextField = (props: PropType) => {
-    const { onButtonClick, setSiteId, buttonText } = props;
+  const { onButtonClick, setSiteId, buttonText } = props;
+  const [localInput, setLocalInput] = useState<string>("");
 
-    return (
-        <Grid container sx={{ pt: 8, justifyContent: "center" }}>
-            <Grid item xs={10} sx={{ pt: 2, pb: 2 }}>
-                <StyledTextField
-                    fullWidth
-                    InputProps={{
-                        startAdornment: <ResponsiveTypography>https://github.com/</ResponsiveTypography>,
-                        placeholder: "YourId",
-                        endAdornment: (
-                            <ResponsiveButton onClick={onButtonClick} aria-label="generate code">
-                                {buttonText}
-                            </ResponsiveButton>
-                        ),
-                    }}
-                    variant="outlined"
-                    onChange={(e) => {
-                        setSiteId?.(e.target.value);
-                    }}
-                />
-            </Grid>
-        </Grid>
-    );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalInput(e.target.value);
+  };
+
+  const handleClick = () => {
+    if (setSiteId) {
+      setSiteId(localInput);
+    }
+    if (onButtonClick) {
+      onButtonClick();
+    }
+  };
+
+  return (
+    <Grid container sx={{ pt: 8, justifyContent: "center" }}>
+      <Grid item xs={10} sx={{ pt: 2, pb: 2 }}>
+        <StyledTextField
+          fullWidth
+          value={localInput}
+          onChange={handleChange}
+          placeholder="YourId"
+          InputProps={{
+            startAdornment: <ResponsiveTypography>https://github.com/</ResponsiveTypography>,
+            endAdornment: (
+              <ResponsiveButton onClick={handleClick} aria-label="generate code">
+                {buttonText}
+              </ResponsiveButton>
+            ),
+          }}
+          variant="outlined"
+        />
+      </Grid>
+    </Grid>
+  );
 };
 
 export default GenerateCodeTextField;
