@@ -22,7 +22,7 @@ import CodeBlock from "@/components/CodeBlock";
 import AreaChart from "@/components/AreaChart";
 import {DailyClick, DailyClicksResponse} from "@/app/type/daily-clicks";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const theme = createTheme({
     palette: {
@@ -33,7 +33,6 @@ const theme = createTheme({
 
 const Page = () => {
     const [svgSiteId, setSvgSiteId] = useState<string>("");
-    const [submittedSvgId, setSubmittedSvgId] = useState<string>("");
     const [historySiteId, setHistorySiteId] = useState<string>("");
     const [svgUrl, setSvgUrl] = useState<string | null>(null);
     const [displaySvgUrl, setDisplaySvgUrl] = useState<string>("");
@@ -45,7 +44,7 @@ const Page = () => {
         if (!historySiteId) return;
         setIsLoading(true);
         try {
-            const res = await fetch(`https://clickme.today/api/v1/daily-click-count/${historySiteId}`);
+            const res = await fetch(`${API_BASE_URL}/api/v1/daily-click-count/${historySiteId}`);
             if (!res.ok) throw new Error("Failed to fetch click history");
             const data: DailyClicksResponse = await res.json();
             setChartData(data.clickCountHistories);
@@ -59,14 +58,13 @@ const Page = () => {
 
     const generateCode = useCallback(() => {
         if (!svgSiteId) return;
-        setSubmittedSvgId(svgSiteId);
         const personalSvgUrl = `${API_BASE_URL}/api/v1/svg-image/increment?name=${svgSiteId}`;
         setDisplaySvgUrl(personalSvgUrl);
     }, [svgSiteId]);
 
     const fetchRankings = useCallback(async () => {
         try {
-            const res = await fetch(`https://clickme.today/api/v1/rankings/live?startRank=0&endRank=5`);
+            const res = await fetch(`${API_BASE_URL}/api/v1/rankings/live?startRank=0&endRank=5`);
             if (!res.ok) throw new Error("Failed to fetch rankings");
             const data = await res.json();
             setRank(data);
