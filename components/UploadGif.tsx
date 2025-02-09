@@ -10,7 +10,7 @@ import {
 import { styled } from "@mui/material/styles";
 
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_BASE_URL = "https://clickme.today";
 
 const HiddenInput = styled("input")({
     display: "none",
