@@ -56,11 +56,12 @@ const Page = () => {
         }
     }, [historySiteId]);
 
-    const generateCode = useCallback(() => {
-        if (!svgSiteId) return;
-        const personalSvgUrl = `${API_BASE_URL}/api/v1/svg-image/increment?name=${svgSiteId}`;
+    const generateCode = useCallback((inputValue: string) => {
+        if (!inputValue) return;
+        setSvgSiteId(inputValue);
+        const personalSvgUrl = `${API_BASE_URL}/api/v1/svg-image/increment?name=${inputValue}`;
         setDisplaySvgUrl(personalSvgUrl);
-    }, [svgSiteId]);
+    }, []);
 
     const fetchRankings = useCallback(async () => {
         try {

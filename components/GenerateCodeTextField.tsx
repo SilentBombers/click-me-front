@@ -44,7 +44,7 @@ const ResponsiveTypography = styled(Typography)(({ theme }) => ({
 }));
 
 interface PropType {
-    onButtonClick?: () => void;
+    onButtonClick?: (value: string) => void;
     setSiteId?: (s: string) => void;
     buttonText: string;
 }
@@ -57,14 +57,15 @@ const GenerateCodeTextField = (props: PropType) => {
     setLocalInput(e.target.value);
   };
 
-  const handleClick = () => {
-    if (setSiteId) {
-      setSiteId(localInput);
-    }
-    if (onButtonClick) {
-      onButtonClick();
-    }
-  };
+    const handleClick = () => {
+        // 업데이트 후 바로 localInput 값을 부모에 전달
+        if (setSiteId) {
+            setSiteId(localInput);
+        }
+        if (onButtonClick) {
+            onButtonClick(localInput);
+        }
+    };
 
   return (
     <Grid container sx={{ pt: 8, justifyContent: "center" }}>
