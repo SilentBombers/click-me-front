@@ -22,7 +22,7 @@ import CodeBlock from "@/components/CodeBlock";
 import AreaChart from "@/components/AreaChart";
 import {DailyClick, DailyClicksResponse} from "@/app/type/daily-clicks";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const theme = createTheme({
     palette: {

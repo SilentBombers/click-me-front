@@ -60,7 +60,7 @@ const UploadGif = ({ onUpload }: PropType) => {
 
     return (
         <Box sx={{ textAlign: "center", padding: "20px" }}>
-            <Typography variant="h5">Upload GIF to Convert</Typography>
+            <Typography variant="h3">Please upload the GIF file you want to convert.</Typography>
             <Button
                 variant="contained"
                 sx={{
